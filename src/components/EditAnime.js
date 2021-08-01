@@ -46,10 +46,10 @@ const EditAnime = (props) => {
         search.setDelete();
         var exist = [];
         localStorage.setItem('savedData', JSON.stringify(exist))
-        remainingTasks.map( (task) => (
-            search.setSaved(task),
+        remainingTasks.forEach( function(task){
+            search.setSaved(task)
             exist.push(task)
-        ))
+        })
         alert('Changed')
         search.setSaved(newObject)
         exist.push(newObject)

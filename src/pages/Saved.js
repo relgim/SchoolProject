@@ -21,26 +21,28 @@ const Results = () => {
         setList([])
         search.deleteList()
         search.search(input).then((data) => (
-            setList(data.results),
-            console.log(data.results)
+            setList(data.results)
+            (console.log(data.results))
         ))
+  
+        //Changed
         if( list !== undefined)
-            list.map( (temp) => (
-                console.log(temp.mal_id),
-                search.savedData.map( (temp2) => {
+            list.forEach( function (temp)  {
+                console.log(temp.mal_id)
+                search.savedData.forEach( function(temp2){
                     if(temp2.mal_id === temp.mal_id){
                         console.log("match")
                         setPath(false);
                         search.setL(temp);
                     }
                 })
-            ))
+            })
     }
 
     useEffect( () => {
         if ( search.savedData === undefined || search.savedData.length === 0 ){
             try {
-                JSON.parse(localStorage.getItem('savedData')).map( (objects) => {
+                JSON.parse(localStorage.getItem('savedData')).forEach( function(objects){
                     search.setSaved(objects);
                 })
                 setDataExists(true);
@@ -54,28 +56,9 @@ const Results = () => {
         search.setDelete();
         localStorage.removeItem('savedData')
     }
-    function refresh(){
-        setList()
-        search.deleteList()
-        search.search(input).then((data) => {
-            setList(data.results);
-            console.log(data.results);
-        });
-
-        list.map( (temp) => {
-            console.log(temp.mal_id);
-            search.savedData.map( (temp2) => {
-                if(temp2.mal_id === temp.mal_id){
-                    console.log("match")
-                    setPath(false);
-                    search.setL(temp);
-                }
-            })
-        })
-    }
     if(search.savedData !== undefined && search.savedData.length === 2){
         var num = -1;
-        search.savedData.map( (temp) => {
+        search.savedData.forEach( function(temp) {
             if( temp.mal_id === num){
                 search.setDelete();
                 search.setSaved(temp)
@@ -127,10 +110,10 @@ const Results = () => {
                                 )}
                                 >Refresh Page</Button>
                                 <Button variant="contained" color="secondary" 
-                                onClick={() => ( 
-                                    alert('Deleted'), 
+                                onClick={() => {
+                                    alert('Deleted')
                                     deleteAll()
-                                )}
+                                }}
                                 >Clear</Button>
                             </FormControl>
                         </form>
@@ -183,10 +166,10 @@ const Results = () => {
                                 )}
                                 >Refresh Page</Button>
                         <Button variant="contained" color="secondary" 
-                        onClick={() => ( 
-                            alert('Deleted'), 
+                        onClick={() => {
+                            alert('Deleted')
                             deleteAll()
-                        )}
+                        }}
                         >Clear</Button>
                     </FormControl>
                 </form>

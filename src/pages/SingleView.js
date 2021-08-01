@@ -6,8 +6,8 @@ import SingleAnime from '../components/SingleAnime';
 const SingleView = () => {
     const search = useContext(SearchContext);
     const [dataExists, setDataExists] = useState(true);
-    let path = true;
-    var tempdata;
+    const [ path, setPath] = useState(true);
+    const [ tempdata, setTempData] = useState({});
     var tempdatalist = search.savedData;
     useEffect( () => {
         if ( search.singleData === undefined || Object.keys(search.singleData).length === 0 ){
@@ -23,23 +23,21 @@ const SingleView = () => {
                 search.setSingle(JSON.parse(localStorage.getItem('singleData')));
             }
             else{
-                tempdatalist.map( (temp) => {
+                tempdatalist.forEach( function(temp) {
                     if(temp.mal_id === search.singleData.mal_id){
-                        path = false
-                        tempdata = temp;
-                        console.log(tempdata);
+                        setPath(false)
+                        setTempData(temp);
                     }
-                    console.log(tempdata);
                 })
                 
             }
         }
-    }, [search] );
+    }, [search, tempdatalist] );
     if(path){
-        tempdatalist.map( (temp) => {
+        tempdatalist.forEach( function(temp)  {
             if(temp.mal_id === search.singleData.mal_id){
-                path = false
-                tempdata = temp;
+                setPath(false)
+                setTempData(temp)
             }
         })
     }

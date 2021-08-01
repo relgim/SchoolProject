@@ -28,48 +28,16 @@ const SavedCard = (props) => {
         search.setEdit(props.anime.mal_id);
         history.push('/edit');
     };
-    const onClickHandler2 = () => {
-        fetch(`https://api.jikan.moe/v3/anime/${props.anime.mal_id}`)
-        .then((response) => response.json())
-        .then((data) =>{
-            let num = false;
-            console.log(search.savedData);
-            history.push('/Saved');
-            search.savedData.map(task => {
-                //console.log(data.title+' + '+data.mal_id+ ' = ' + task.title+' + '+task.mal_id);
-                //console.log(data.title+' + '+parseInt(data.mal_id)+ ' = ' + task.title+' + '+parseInt(task.mal_id));
-                if (parseInt(data.mal_id) === parseInt(task.mal_id)) {
-                    num = true;
-                }
-            });
-            if(num){
-                alert("Error: You already saved this anime.");
-                history.push('/Saved');
-            }
-            else{
-                console.log(data);
-                search.setSaved(data);
-
-                var exist = JSON.parse(localStorage.getItem('savedData')) || [];
-                exist.push(data);
-                localStorage.setItem('savedData', JSON.stringify(exist))
-
-                console.log(exist);
-                history.push('/Saved');
-            }
-            
-        });
-    };
     function handleDelete() {
         const remainingTasks = search.savedData.filter(task => props.anime.mal_id !== task.mal_id);
         console.log(remainingTasks)
         search.setDelete();
         var exist = [];
         localStorage.setItem('savedData', JSON.stringify(exist))
-        remainingTasks.map( (task) => (
-            search.setSaved(task),
+        remainingTasks.forEach( function(task){
+            search.setSaved(task)
             exist.push(task)
-        ))
+        })
         localStorage.setItem('savedData', JSON.stringify(exist))
     }
 

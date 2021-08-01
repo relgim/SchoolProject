@@ -21,7 +21,7 @@ const AnimeCard = (props) => {
     if (search.savedData === undefined || search.savedData.length === 0){
     }
     else{
-        search.savedData.map( (temp) => {
+        search.savedData.forEach( function(temp) {
             if(temp.mal_id === props.anime.mal_id){
                 console.log("false")
                 title = temp.title.length >= 15 ? `${temp.title.substring(0,15)}...` : `${temp.title}`;
@@ -46,9 +46,8 @@ const AnimeCard = (props) => {
             let num = false;
             console.log(search.savedData);
             history.push('/Saved');
-            search.savedData.map(task => {
-                //console.log(data.title+' + '+data.mal_id+ ' = ' + task.title+' + '+task.mal_id);
-                //console.log(data.title+' + '+parseInt(data.mal_id)+ ' = ' + task.title+' + '+parseInt(task.mal_id));
+            //Changed
+            search.savedData.forEach( function (task) {
                 if (parseInt(data.mal_id) === parseInt(task.mal_id)) {
                     num = true;
                 }

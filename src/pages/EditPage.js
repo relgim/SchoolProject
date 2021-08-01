@@ -1,4 +1,4 @@
-import React, { useEffect , useState, useContext }  from 'react';
+import React, { useState, useContext }  from 'react';
 import { useHistory } from 'react-router-dom';
 import {SearchContext} from '../context/search';
 import { Box, Typography } from '@material-ui/core';
@@ -11,11 +11,12 @@ const EditPage = () => {
     let temp;
 
     if(search.savedData === undefined || search.savedData.length === 0){
+        setDataExists(true)
         console.log('start')
         history.push('/Saved');
         return<div></div>;
     }
-    search.savedData.map(task => {
+    search.savedData.forEach(function(task) {
         if (parseInt(search.editData) === parseInt(task.mal_id)) {
             console.log("TRUE")
             temp = task;
