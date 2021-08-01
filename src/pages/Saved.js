@@ -15,16 +15,13 @@ const Results = () => {
     useEffect( () => {
         console.log(search.list);
     }, [search.list])
-
     const handleSearch = (event) => {
         event.preventDefault();
         setList([])
         search.deleteList()
         search.search(input).then((data) => (
             setList(data.results)
-            (console.log(data.results))
         ))
-  
         //Changed
         if( list !== undefined)
             list.forEach( function (temp)  {
